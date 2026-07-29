@@ -1,0 +1,137 @@
+/* ===================================================================
+   historia.css
+   Trae todo lo que esta página usa de styles.css (variables, tipografía
+   base, header/footer, botones, .eyebrow, .reveal, etc.) y le suma los
+   estilos propios de "Nuestra Historia" que antes estaban en un
+   <style> dentro del HTML.
+=================================================================== */
+@import url("styles.css");
+
+/* ---------- Intro ---------- */
+.history-hero {
+  background: var(--bg-alt);
+  padding: 8.5rem 2rem 4rem;
+  text-align: left;
+}
+.history-hero-inner { max-width: var(--container); margin: 0 auto; }
+.history-hero .eyebrow { text-align: center; }
+.back-link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--petrol-dark);
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.history-hero h1 { font-size: clamp(2rem, 5vw, 3rem); max-width: 14ch; text-align: center; margin-left: auto; margin-right: auto; }
+.history-hero p { text-align: center;}
+.history-hero .lead { font-size: 1.1rem; margin: 0; }
+
+/* ---------- Bloques de historia ---------- */
+.history-block { padding: 4.5rem 2rem; text-align: left; }
+.history-block.alt { background: var(--bg-alt); }
+.history-block--full {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.history-inner { max-width: var(--container); margin: 0 auto; }
+.history-num {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--petrol-dark);
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+.history-block:nth-of-type(2) .history-num { color: var(--olive-dark); }
+.history-block:nth-of-type(3) .history-num { color: var(--earth-dark); }
+.history-block:nth-of-type(4) .history-num { color: var(--olive-dark); }
+.history-block:nth-of-type(5) .history-num { color: var(--earth-dark); }
+.history-inner h2 { font-size: clamp(1.5rem, 3vw, 2rem); max-width: 20ch; text-align: center; margin-left: auto; margin-right: auto; }
+.history-inner p { max-width: none; margin-left: 0; margin-right: 0; }
+
+/* ---------- Foto + texto (Misión / Filosofía / Propósito) ---------- */
+.history-split {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.history-photo {
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--bg-alt);
+  border-radius: var(--radius-lg);
+}
+.history-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.history-split--flip { grid-template-columns: 1.1fr 0.9fr; }
+.history-split--flip .history-photo { order: 2; }
+.history-split--flip .history-text { order: 1; }
+
+/* ---------- Principios ---------- */
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(200px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.principle-item {
+  background: var(--bone);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--petrol);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.3rem;
+  text-align: left;
+}
+.principle-item:nth-child(3n+2) { border-top-color: var(--olive); }
+.principle-item:nth-child(3n+3) { border-top-color: var(--earth); }
+.principles-grid .reveal:nth-child(1) { transition-delay: 0s; }
+.principles-grid .reveal:nth-child(2) { transition-delay: 0.08s; }
+.principles-grid .reveal:nth-child(3) { transition-delay: 0.16s; }
+.principles-grid .reveal:nth-child(4) { transition-delay: 0.24s; }
+.principles-grid .reveal:nth-child(5) { transition-delay: 0.32s; }
+.principles-grid .reveal:nth-child(6) { transition-delay: 0.4s; }
+.principle-item h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem;
+  text-align: center;
+}
+.principle-item p { font-size: 0.9rem; margin: 0; }
+
+/* ---------- Manifiesto pendiente ---------- */
+.pending-note {
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---------- Cierre / CTA ---------- */
+.history-cta {
+  background: var(--ink);
+  color: var(--bone);
+  text-align: center;
+  padding: 5rem 2rem;
+}
+.history-cta h2 { color: var(--bone); max-width: none; }
+.history-cta p { color: rgba(255,255,255,0.75); max-width: 48ch; margin: 0 auto 1.6rem; }
+
+@media (max-width: 900px) {
+  .principles-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 800px) {
+  .history-split { grid-template-columns: 1fr; gap: 1.5rem; }
+  .history-photo { aspect-ratio: 16/10; }
+  .history-split--flip .history-photo { order: 1; }
+  .history-split--flip .history-text { order: 2; }
+}
+
+@media (max-width: 600px) {
+  .history-hero { padding: 6.5rem 1.2rem 3rem; }
+  .history-block, .history-cta { padding: 3rem 1.2rem; }
+  .principles-grid { grid-template-columns: 1fr; }
+}

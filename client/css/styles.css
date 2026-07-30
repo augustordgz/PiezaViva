@@ -19,6 +19,13 @@
   --line: rgba(30, 43, 46, 0.12);
   --line-strong: rgba(30, 43, 46, 0.25);
 
+  /* Franjas intencionalmente oscuras (Contacto, footer, cierre de Historia)
+     y texto/íconos sobre botones de color o fotos — se mantienen casi
+     iguales en ambos temas, no "flipean" con el modo oscuro. */
+  --contrast-bg: #1E2B2E;
+  --on-color: #FDFBF7;
+  --header-bg: rgba(255, 255, 255, 0.92);
+
   --font-display: "Fraunces", serif;
   --font-body: "Source Sans 3", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
@@ -26,6 +33,27 @@
   --radius: 10px;
   --radius-lg: 20px;
   --container: 1180px;
+}
+
+/* ===================================================================
+   TEMA OSCURO
+=================================================================== */
+[data-theme="dark"] {
+  --bg: #12191C;
+  --bg-alt: #1A2226;
+  --bone: #202B2F;
+  --ink: #ECF1F2;
+  --ink-soft: #A9B8BB;
+  --petrol: #3E8FB0;
+  --petrol-dark: #7FC6E0;
+  --olive: #8CAE63;
+  --olive-dark: #B7D08C;
+  --earth: #C08659;
+  --earth-dark: #E0AE84;
+  --line: rgba(236, 241, 242, 0.12);
+  --line-strong: rgba(236, 241, 242, 0.24);
+  --contrast-bg: #0D1315;
+  --header-bg: rgba(18, 25, 28, 0.85);
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +69,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 img { max-width: 100%; display: block; }
@@ -77,7 +106,7 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 1rem;
 }
 
-button { font-family: inherit; cursor: pointer; }
+button { font-family: inherit; color: inherit; cursor: pointer; }
 
 :focus-visible {
   outline: 2px solid var(--petrol-dark);
@@ -102,7 +131,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .btn-primary {
   background: var(--petrol);
-  color: var(--bone);
+  color: var(--on-color);
 }
 .btn-primary:hover { background: var(--petrol-dark); transform: translateY(-1px); }
 
@@ -121,9 +150,10 @@ button { font-family: inherit; cursor: pointer; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 200;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--header-bg);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 .header-inner {
   max-width: var(--container);
@@ -142,7 +172,7 @@ button { font-family: inherit; cursor: pointer; }
 .logo-mark {
   font-family: var(--font-display);
   font-size: 1.6rem;
-  color: var(--petrol);
+  color: var(--petrol-dark);
 }
 .logo-text {
   font-family: var(--font-mono);
@@ -185,6 +215,25 @@ button { font-family: inherit; cursor: pointer; }
 .menu-toggle span { width: 22px; height: 2px; background: var(--ink); }
 
 /* ===================================================================
+   INTERRUPTOR DE TEMA (claro / oscuro)
+=================================================================== */
+.theme-toggle {
+  width: 34px; height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: none;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft);
+  transition: color 0.15s ease, border-color 0.15s ease;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { color: var(--petrol); border-color: var(--petrol); }
+.theme-toggle svg { width: 16px; height: 16px; }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ===================================================================
    HERO — foto grande
 =================================================================== */
 .hero {
@@ -212,13 +261,13 @@ button { font-family: inherit; cursor: pointer; }
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 2rem 4.5rem;
-  color: var(--bone);
+  color: var(--on-color);
 }
 .hero-content .eyebrow { color: #C9A98A; }
 .hero-title {
   font-size: clamp(2.4rem, 6vw, 4.2rem);
   max-width: 16ch;
-  color: var(--bone);
+  color: var(--on-color);
 }
 .hero-sub {
   max-width: 52ch;
@@ -228,7 +277,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
 .btn-ghost--light {
   border-color: rgba(255, 255, 255,0.45);
-  color: var(--bone);
+  color: var(--on-color);
 }
 .btn-ghost--light:hover { border-color: var(--petrol); color: #C9A98A; }
 
@@ -256,7 +305,7 @@ button { font-family: inherit; cursor: pointer; }
   border: 1px solid var(--line);
   border-top: 3px solid var(--petrol);
   border-radius: var(--radius-lg);
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 .capacity-card:nth-child(3n+2) { border-top-color: var(--olive); }
 .capacity-card:nth-child(3n+3) { border-top-color: var(--earth); }
@@ -296,7 +345,7 @@ button { font-family: inherit; cursor: pointer; }
 .tech-num {
   display: block;
   font-size: 0.78rem;
-  color: var(--olive);
+  color: var(--olive-dark);
   margin-bottom: 0.8rem;
 }
 .tech-item p { font-size: 0.92rem; margin-bottom: 0; }
@@ -400,10 +449,10 @@ button { font-family: inherit; cursor: pointer; }
 /* ===================================================================
    CONTACTO
 =================================================================== */
-.contact { position: relative; background: var(--ink); color: var(--bone); overflow: hidden; }
-.contact .strata-bg--flip .stratum { opacity: 0.12; background: var(--bone) !important; }
+.contact { position: relative; background: var(--contrast-bg); color: var(--on-color); overflow: hidden; }
+.contact .strata-bg--flip .stratum { opacity: 0.12; background: var(--on-color) !important; }
 .contact .section-inner { position: relative; z-index: 1; }
-.contact h2, .contact h3 { color: var(--bone); }
+.contact h2, .contact h3 { color: var(--on-color); }
 .contact p { color: rgba(255, 255, 255, 0.75); }
 .contact .eyebrow { color: #C9A98A; }
 
@@ -414,7 +463,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .contact-details { list-style: none; padding: 0; margin: 1.2rem 0; font-size: 0.95rem; }
 .contact-details li { padding: 0.3rem 0; }
-.btn-email { border-color: rgba(255, 255, 255,0.35); color: var(--bone); }
+.btn-email { border-color: rgba(255, 255, 255,0.35); color: var(--on-color); }
 .work-with-us { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255,0.2); }
 
 .contact-form {
@@ -457,7 +506,8 @@ button { font-family: inherit; cursor: pointer; }
 /* ===================================================================
    FOOTER
 =================================================================== */
-.site-footer { background: var(--ink); color: rgba(255, 255, 255,0.7); }
+.site-footer { background: var(--contrast-bg); color: rgba(255, 255, 255,0.7); }
+.site-footer p { color: rgba(255, 255, 255, 0.7); }
 .footer-inner {
   padding: 2rem;
   display: flex;
@@ -488,7 +538,7 @@ button { font-family: inherit; cursor: pointer; }
   width: 54px; height: 54px;
   border-radius: 50%;
   background: var(--olive);
-  color: var(--bone);
+  color: var(--on-color);
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 14px rgba(0,0,0,0.25);
   z-index: 300;

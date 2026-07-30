@@ -4,6 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* -------- Tema claro / oscuro -------- */
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('pv-theme', next); } catch (e) {}
+    });
+  }
+
   /* -------- Menú móvil -------- */
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');

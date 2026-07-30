@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/theme.js"></script>
 <title>Pieza Viva | Consultora Arqueológica</title>
 <meta name="description" content="Consultora arqueológica: comprendemos, documentamos, gestionamos y compartimos el patrimonio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,16 +32,21 @@
     </nav>
 
     <div class="header-social">
-      <a href="#" aria-label="Facebook">
+      <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
       </a>
-      <a href="#" aria-label="Instagram">
+      <a href="https://www.instagram.com/piezavivacl/" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
       <a href="#" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
     </div>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a tema oscuro">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
 
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -50,7 +56,7 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero hero--photo" id="inicio">
-  <img class="hero-photo" src="img/hero-principal.jpg" alt="Equipo arqueológico trabajando en terreno" loading="eager">
+  <img class="hero-photo" src="images/proyecto-01/puntas-compilado.jpeg" alt="Equipo arqueológico trabajando en terreno" loading="eager">
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-content">
     <p class="eyebrow mono">Consultora arqueológica — Chile</p>
@@ -119,7 +125,7 @@
     <div class="tech-grid">
       <div class="tech-item reveal">
         <div class="tech-photo">
-          <img src="img/tecnologia-fotogrametria.jpg" alt="Ejemplo de fotogrametría aplicada a un sitio arqueológico" loading="lazy">
+          <img src="images/tecnologia-fotogrametria.png" alt="Ejemplo de fotogrametría aplicada a un sitio arqueológico" loading="lazy">
         </div>
         <span class="tech-num mono">T.01</span>
         <h3>Fotogrametría</h3>
@@ -127,7 +133,7 @@
       </div>
       <div class="tech-item reveal">
         <div class="tech-photo">
-          <img src="img/tecnologia-drones.jpg" alt="Dron utilizado para registro aéreo" loading="lazy">
+          <img src="images/tecnologia-drones.png" alt="Dron utilizado para registro aéreo" loading="lazy">
         </div>
         <span class="tech-num mono">T.02</span>
         <h3>Drones</h3>
@@ -135,7 +141,7 @@
       </div>
       <div class="tech-item reveal">
         <div class="tech-photo">
-          <img src="img/tecnologia-rdp.jpg" alt="Equipo de radar de penetración en terreno" loading="lazy">
+          <img src="images/tecnologia-rdp.png" alt="Equipo de radar de penetración en terreno" loading="lazy">
         </div>
         <span class="tech-num mono">T.03</span>
         <h3>RDP</h3>
@@ -143,7 +149,7 @@
       </div>
       <div class="tech-item reveal">
         <div class="tech-photo">
-          <img src="img/tecnologia-modelos-3d.jpg" alt="Modelo 3D de una pieza arqueológica" loading="lazy">
+          <img src="images/tecnologia-modelos-3d.png" alt="Modelo 3D de una pieza arqueológica" loading="lazy">
         </div>
         <span class="tech-num mono">T.04</span>
         <h3>Modelos 3D</h3>
@@ -162,7 +168,7 @@
     <div class="projects-grid">
       <article class="project-card reveal">
         <div class="project-photo">
-          <img src="img/proyecto-01.jpg" alt="Proyecto destacado 1" loading="lazy">
+          <img src="images/proyecto-01.jpg" alt="Proyecto destacado 1" loading="lazy">
         </div>
         <span class="mono project-tag">PROYECTO 01</span>
         <h3>Nombre del proyecto</h3>
@@ -171,7 +177,7 @@
       </article>
       <article class="project-card reveal">
         <div class="project-photo">
-          <img src="img/proyecto-02.jpg" alt="Proyecto destacado 2" loading="lazy">
+          <img src="images/proyecto-02.jpg" alt="Proyecto destacado 2" loading="lazy">
         </div>
         <span class="mono project-tag">PROYECTO 02</span>
         <h3>Nombre del proyecto</h3>
@@ -275,8 +281,8 @@
       <p>¿Tienes en marcha algún estudio o evaluación arqueológica? Envíanos tus datos y te contactaremos a la brevedad.</p>
  
       <ul class="contact-details mono">
-        <li>+56 9 0000 0000</li>
-        <li>contacto@piezaviva.cl</li>
+        <li>+56 9 4102 4290</li>
+        <li>contacto@piezaviva.com</li>
         <li>Chile</li>
       </ul>
  
@@ -287,7 +293,7 @@
       <div class="work-with-us">
         <h3>¿Buscás trabajar con nosotros?</h3>
         <p>Conocé las búsquedas activas y postulá desde nuestra página de postulaciones.</p>
-        <a href="postulaciones/postulaciones.html" class="btn btn-primary">Forma parte de Pieza Viva</a>
+        <a href="postulaciones.html" class="btn btn-primary">Forma parte de Pieza Viva</a>
       </div>
     </div>
  
@@ -333,10 +339,10 @@
     <span class="logo-text small">PIEZA VIVA</span>
     <p class="mono">© <span id="year"></span> · Consultora Arqueológica · Chile</p>
     <div class="footer-social">
-      <a href="#" aria-label="Facebook">
+      <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
       </a>
-      <a href="#" aria-label="Instagram">
+      <a href="https://www.instagram.com/piezavivacl/" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
       <a href="#" aria-label="LinkedIn">
@@ -352,12 +358,12 @@
 </a> -->
 
 <!-- ================= MODAL DE ARTÍCULOS DEL BLOG ================= -->
-<div class="modal-overlay" id="modalOverlay">
+<!-- <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box" id="modalBox">
     <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
     <div class="modal-content" id="modalContent"></div>
   </div>
-</div>
+</div> -->
 
 <script src="js/script.js"></script>
 </body>

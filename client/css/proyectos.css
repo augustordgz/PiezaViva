@@ -1,0 +1,21 @@
+/* ===================================================================
+   proyecto-01.css
+   Trae todo lo que esta página usa de styles.css (variables, tipografía
+   base, header/footer, botones, .eyebrow, etc.) y le suma los estilos
+   propios de la ficha de proyecto que antes estaban en un <style>
+   dentro del HTML.
+=================================================================== */
+@import url("styles.css");
+
+.project-detail { max-width: 860px; margin: 0 auto; padding: 8rem 2rem 5rem; }
+.project-detail .back-link { font-family: var(--font-mono); font-size: 0.85rem; color: var(--petrol-dark); display: inline-block; margin-bottom: 2rem; }
+.project-detail .cover { aspect-ratio: 16/9; overflow: hidden; margin-bottom: 2rem; background: var(--bg-alt); border-radius: var(--radius-lg); }
+.project-detail .cover img { width: 100%; height: 100%; object-fit: cover; }
+.project-detail .meta { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0 2.5rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1rem 0; }
+.project-detail .meta div { font-size: 0.85rem; }
+.project-detail .meta span { display: block; font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-soft); margin-bottom: 0.2rem; }
+.project-cta { text-align: center; margin-top: 1rem; }
+
+@media (max-width: 600px) {
+  .project-detail { padding: 6.5rem 1.2rem 3.5rem; }
+}

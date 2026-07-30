@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/theme.js"></script>
 <title>Nuestra Historia | Pieza Viva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +12,7 @@
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="site-header" id="header">
   <div class="header-inner">
     <a href="#inicio" class="logo">
@@ -18,17 +20,32 @@
       <span class="logo-text">PIEZA<br>VIVA</span>
     </a>
 
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="index.html#capacidades">Capacidades</a>
+      <a href="index.html#proyectos">Proyectos</a>
+      <!-- <a href="index.html#blog">Blog</a> -->
+      <a href="index.html#merch">Merch</a>
+      <a href="index.html#contacto" class="nav-cta">Contacto</a>
+    </nav>
+
     <div class="header-social">
-      <a href="#" aria-label="Facebook">
+      <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
       </a>
-      <a href="#" aria-label="Instagram">
+      <a href="https://www.instagram.com/piezavivacl/" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
       <a href="#" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
     </div>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a tema oscuro">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
 
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -48,7 +65,7 @@
   <div class="history-inner reveal">
     <div class="history-split">
       <div class="history-photo">
-        <img src="img/historia-mision.jpg" alt="Equipo de Pieza Viva documentando un sitio arqueológico" loading="lazy">
+        <img src="images/historia-mision.jpg" alt="Equipo de Pieza Viva documentando un sitio arqueológico" loading="lazy">
       </div>
       <div class="history-text">
         <span class="history-num mono">01 — Nuestra misión</span>
@@ -66,7 +83,7 @@
   <div class="history-inner reveal">
     <div class="history-split history-split--flip">
       <div class="history-photo">
-        <img src="img/historia-filosofia.jpg" alt="Trabajo de campo del equipo de Pieza Viva" loading="lazy">
+        <img src="images/historia-filosofia.jpg" alt="Trabajo de campo del equipo de Pieza Viva" loading="lazy">
       </div>
       <div class="history-text">
         <span class="history-num mono">02 — Nuestra filosofía</span>
@@ -161,10 +178,10 @@ Y toda historia merece ser contada.
     <span class="logo-text small">PIEZA VIVA</span>
     <p class="mono">© <span id="year"></span> · Consultora Arqueológica · Chile</p>
     <div class="footer-social">
-      <a href="#" aria-label="Facebook">
+      <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
       </a>
-      <a href="#" aria-label="Instagram">
+      <a href="https://www.instagram.com/piezavivacl/" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
       <a href="#" aria-label="LinkedIn">
@@ -175,6 +192,5 @@ Y toda historia merece ser contada.
 </footer>
 
 <script src="js/script.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

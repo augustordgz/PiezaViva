@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/theme.js"></script>
+<title>Postulaciones | Pieza Viva</title>
+<meta name="description" content="Postulá para trabajar en Pieza Viva. Completá tus datos y adjuntá tu CV en PDF.">
+<link rel="shortcut icon" href="icono.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/postulaciones.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="#inicio" class="logo">
+      <img
+            src="images/piezaviva2.jpeg"
+            alt="Logo"
+            width="110"
+            height="40"
+          />
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html#inicio">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="index.html#capacidades">Capacidades</a>
+      <a href="index.html#proyectos">Proyectos</a>
+      <!-- <a href="#blog">Blog</a> -->
+      <!-- <a href="#merch">Merch</a> -->
+      <a href="index.html#contacto" class="nav-cta">Contacto</a>
+    </nav>
+
+    <div class="header-social">
+      <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/piezavivacl/" aria-label="Instagram" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="#" aria-label="LinkedIn" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a tema oscuro">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= INTRO ================= -->
+<section class="postulaciones-hero">
+  <div class="postulaciones-hero-inner">
+    <a href="index.html#contacto" class="back-link mono">← Volver</a>
+    <h1>Forma parte de Pieza Viva</h1>
+    <p class="lead">Completa tus datos y adjunta tu CV. Si tu perfil se ajusta con alguna búsqueda activa o futura, nos vamos a poner en contacto contigo.</p>
+  </div>
+</section>
+
+<!-- ================= FORMULARIO ================= -->
+<section class="postulaciones-form-section contact">
+  <div class="strata-bg strata-bg--flip" aria-hidden="true">
+    <div class="stratum s1"></div>
+    <div class="stratum s2"></div>
+    <div class="stratum s3"></div>
+  </div>
+  <div class="section-inner postulaciones-form-inner">
+    <div class="postulaciones-form-intro">
+      <p class="eyebrow mono">Postulaciones</p>
+      <h2>Envíanos tu postulación</h2>
+      <p>Completa el formulario y adjunta tu CV en formato PDF.</p>
+    </div>
+
+    <form class="contact-form postulacion-form" id="postulacionForm" action="form/postulacion.php" method="POST" enctype="multipart/form-data" novalidate>
+      <div class="form-row">
+        <label for="p-nombre">Nombre completo</label>
+        <input type="text" id="p-nombre" name="nombre" required>
+        <span class="field-error" id="err-p-nombre"></span>
+      </div>
+      <div class="form-row form-row--split">
+        <div>
+          <label for="p-email">Email</label>
+          <input type="email" id="p-email" name="email" required>
+          <span class="field-error" id="err-p-email"></span>
+        </div>
+        <div>
+          <label for="p-telefono">Teléfono</label>
+          <input type="tel" id="p-telefono" name="telefono" inputmode="numeric" placeholder="+56 9 1234 5678">
+          <span class="field-error" id="err-p-telefono"></span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="p-cargo">Cargo o área de interés</label>
+        <input type="text" id="p-cargo" name="cargo" placeholder="Ej: Arqueología, Conservación, Administración">
+      </div>
+      <div class="form-row">
+        <label for="p-mensaje">Cuéntanos brevemente sobre tí (opcional)</label>
+        <textarea id="p-mensaje" name="mensaje" rows="4"></textarea>
+      </div>
+      <div class="form-row">
+        <label for="p-cv">Currículum (PDF, máx. 4MB)</label>
+        <div class="file-field">
+          <input type="file" id="p-cv" name="cv" accept=".pdf,application/pdf" required>
+          <span class="file-hint">Solo archivos PDF, hasta 4MB.</span>
+          <span class="file-name" id="p-cv-name"></span>
+          <span class="field-error" id="err-p-cv"></span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Enviar postulación</button>
+      <p class="form-status mono" id="postulacionStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <img
+            src="images/piezaviva2.jpeg"
+            alt="Logo"
+            width="130"
+            height="50"
+          />
+    <p class="mono">© <span id="year"></span> · Consultora Arqueológica · Chile</p>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/piezavivacl/" aria-label="Instagram" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="#" aria-label="LinkedIn" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= MODAL DE ENVÍO EXITOSO ================= -->
+<div class="modal-overlay" id="postulacionSuccessOverlay">
+  <div class="modal-box modal-box--success" id="postulacionSuccessBox" role="dialog" aria-modal="true" aria-labelledby="postulacionSuccessTitle">
+    <button class="modal-close" id="postulacionSuccessClose" aria-label="Cerrar">✕</button>
+    <div class="modal-content">
+      <span class="success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>
+      <h2 id="postulacionSuccessTitle">¡Listo!</h2>
+      <p>Tu postulación ha sido enviada correctamente.</p>
+      <button type="button" class="btn btn-primary" id="postulacionSuccessOk">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>

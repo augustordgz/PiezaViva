@@ -61,11 +61,14 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero hero--photo" id="inicio">
-  <img class="hero-photo" src="images/tecnologia-fotogrametria.png" alt="Equipo arqueológico trabajando en terreno" loading="eager">
+  <picture>
+  <source media="(max-width: 600px)" srcset="images/hero_celular.png">
+  <img class="hero-photo" src="images/tecnologia-fotogrametria.png" alt="Foto de Pieza Viva" loading="eager">
+</picture>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-content">
     <p class="hero-sub">Consultora arqueológica — Chile</p>
-    <h1 class="hero-title">Hacemos visible el patrimonio.</h1>
+    <h1 class="hero-title">Hacemos visible el patrimonio</h1>
     <p class="hero-sub">Comprendemos, documentamos, gestionamos y compartimos el registro arqueológico de proyectos de inversión, con rigor científico y compromiso patrimonial.</p>
     <div class="hero-actions">
       <a href="#contacto" class="btn btn-primary">Solicitar asesoría</a>
@@ -216,12 +219,12 @@ Y toda historia merece ser contada.
         </div>
         <span class="mono project-tag">PROYECTO 02</span>
         <h3>Revelado Digital en botellas históricas</h3>
-        <p> Revelado Digital realizado en botellas de vidrio históricas asociadas al Puerto de Valparaíso a finales del siglo XVIII y principios del XIX</p>
+        <p> Revelado Digital realizado en botellas de vidrio históricas asociadas al Puerto de Valparaíso a finales del siglo XVIII y principios del XIX.</p>
         <a href="proyecto-02.html" class="link-more">Ver proyecto →</a>
       </article>
       <article class="project-card reveal">
         <div class="project-photo">
-          <img src="img/proyecto-03.jpg" alt="Proyecto destacado 3" loading="lazy">
+          <img src="images/captura-ortomosaico.png" alt="Proyecto destacado 3" loading="lazy">
         </div>
         <span class="mono project-tag">PROYECTO 03</span>
         <h3>Ortomosaico de las Dunas de Mariscadero</h3>
@@ -313,7 +316,7 @@ Y toda historia merece ser contada.
     <div class="contact-info">
       <p class="eyebrow mono">Contacto</p>
       <h2>Solicita aquí tu asesoría</h2>
-      <p>¿Tienes en marcha algún proyecto de desarrollo e inverisón o de gestión territorial?</p>
+      <p>¿Tienes en marcha algún proyecto de desarrollo e inversión o de gestión territorial?</p>
  
       <ul class="contact-details mono">
         <li>+56 9 4102 4290</li>
@@ -376,7 +379,12 @@ Y toda historia merece ser contada.
 <!-- ================= FOOTER ================= -->
 <footer class="site-footer">
   <div class="section-inner footer-inner">
-    <span class="logo-text small">PIEZA VIVA</span>
+    <img
+            src="images/piezaviva2.jpeg"
+            alt="Logo"
+            width="130"
+            height="50"
+          />
     <p class="mono">© <span id="year"></span> · Consultora Arqueológica · Chile</p>
     <div class="footer-social">
       <a href="https://www.facebook.com/piezavivacl" aria-label="Facebook" target="_blank">

@@ -1,0 +1,61 @@
+/* ===================================================================
+   postulaciones.css
+   Trae todo lo que esta página usa de styles.css (variables, tipografía
+   base, header/footer, botones, formularios, modal, etc.) y le suma
+   los estilos propios de la página de Postulaciones.
+=================================================================== */
+@import url("styles.css");
+
+.postulaciones-hero {
+  background: var(--bg-alt);
+  padding: 8.5rem 2rem 4rem;
+}
+.postulaciones-hero-inner { max-width: var(--container); margin: 0 auto; }
+.back-link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--petrol-dark);
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.postulaciones-hero h1 { max-width: 20ch; }
+.postulaciones-hero .lead { font-size: 1.1rem; max-width: 60ch; margin-bottom: 0; }
+
+.postulaciones-form-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.postulaciones-form-intro { margin-bottom: 2.2rem; }
+.postulaciones-form-intro .eyebrow { color: #C9A98A; }
+
+.file-field {
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background: var(--bg);
+}
+.file-field.has-error { border-color: #A8432E; }
+.file-field input[type="file"] {
+  border: none;
+  padding: 0;
+  background: none;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+.file-hint {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+.file-name {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--olive-dark);
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .postulaciones-hero { padding: 6.5rem 1.2rem 3rem; }
+}

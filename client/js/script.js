@@ -226,4 +226,169 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
+  /* -------- Formulario de Postulaciones -------- */
+  const postulacionForm = document.getElementById('postulacionForm');
+  const postulacionStatus = document.getElementById('postulacionStatus');
+
+  if (postulacionForm) {
+    const PESO_MAXIMO_CV = 4 * 1024 * 1024; // 4MB
+
+    const postulacionValidators = {
+      nombre: (value) => value.trim() !== '' || 'Ingresá tu nombre completo.',
+      email: (value) => {
+        if (value.trim() === '') return 'Ingresá tu email.';
+        const valido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+        return valido || 'Ingresá un email válido (ej: nombre@dominio.com).';
+      },
+      telefono: (value) => {
+        if (value.trim() === '') return true; // opcional
+        const soloValidos = /^[0-9+\-\s]+$/.test(value);
+        if (!soloValidos) return 'El teléfono solo puede contener números.';
+        const digitos = value.replace(/\D/g, '');
+        return digitos.length >= 8 || 'Ingresá un teléfono válido (mínimo 8 dígitos).';
+      }
+    };
+
+    function showFieldError(input, message) {
+      const wrapper = input.parentElement;
+      const errorEl = document.getElementById('err-' + input.id);
+      if (message === true || message === undefined) {
+        wrapper.classList.remove('has-error');
+        if (errorEl) errorEl.textContent = '';
+        return true;
+      }
+      wrapper.classList.add('has-error');
+      if (errorEl) errorEl.textContent = message;
+      return false;
+    }
+
+    function validatePostulacionField(input) {
+      const validator = postulacionValidators[input.name];
+      if (!validator) return true;
+      const result = validator(input.value);
+      return showFieldError(input, result === true ? true : result);
+    }
+
+    // Teléfono: filtra letras apenas se escriben.
+    const pTelefono = document.getElementById('p-telefono');
+    if (pTelefono) {
+      pTelefono.addEventListener('input', () => {
+        const limpio = pTelefono.value.replace(/[^0-9+\-\s]/g, '');
+        if (limpio !== pTelefono.value) pTelefono.value = limpio;
+        validatePostulacionField(pTelefono);
+      });
+    }
+
+    ['nombre', 'email'].forEach((name) => {
+      const input = postulacionForm.elements[name];
+      if (!input) return;
+      input.addEventListener('blur', () => validatePostulacionField(input));
+      input.addEventListener('input', () => {
+        if (input.parentElement.classList.contains('has-error')) validatePostulacionField(input);
+      });
+    });
+
+    // Validación del CV: debe existir, ser PDF y pesar 4MB o menos.
+    const cvInput = document.getElementById('p-cv');
+    const cvNameEl = document.getElementById('p-cv-name');
+
+    function validateCV() {
+      const file = cvInput.files && cvInput.files[0];
+      if (cvNameEl) cvNameEl.textContent = file ? file.name : '';
+
+      if (!file) return showFieldError(cvInput, 'Adjuntá tu CV en PDF.');
+
+      const esPDF = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+      if (!esPDF) {
+        cvInput.value = '';
+        if (cvNameEl) cvNameEl.textContent = '';
+        return showFieldError(cvInput, 'El archivo debe ser un PDF.');
+      }
+
+      if (file.size > PESO_MAXIMO_CV) {
+        cvInput.value = '';
+        if (cvNameEl) cvNameEl.textContent = '';
+        return showFieldError(cvInput, 'El CV no puede pesar más de 4MB.');
+      }
+
+      return showFieldError(cvInput, true);
+    }
+
+    if (cvInput) cvInput.addEventListener('change', validateCV);
+
+    /* -------- Modal de envío exitoso (postulaciones) -------- */
+    const postulacionSuccessOverlay = document.getElementById('postulacionSuccessOverlay');
+    const postulacionSuccessClose = document.getElementById('postulacionSuccessClose');
+    const postulacionSuccessOk = document.getElementById('postulacionSuccessOk');
+
+    function openPostulacionSuccessModal() {
+      if (postulacionSuccessOverlay) postulacionSuccessOverlay.classList.add('active');
+    }
+    function closePostulacionSuccessModal() {
+      if (postulacionSuccessOverlay) postulacionSuccessOverlay.classList.remove('active');
+    }
+    if (postulacionSuccessClose) postulacionSuccessClose.addEventListener('click', closePostulacionSuccessModal);
+    if (postulacionSuccessOk) postulacionSuccessOk.addEventListener('click', closePostulacionSuccessModal);
+    if (postulacionSuccessOverlay) {
+      postulacionSuccessOverlay.addEventListener('click', (e) => {
+        if (e.target === postulacionSuccessOverlay) closePostulacionSuccessModal();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePostulacionSuccessModal();
+    });
+
+    postulacionForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      let esValido = true;
+      let primerCampoInvalido = null;
+
+      Object.keys(postulacionValidators).forEach((name) => {
+        const input = postulacionForm.elements[name];
+        if (!input) return;
+        const ok = validatePostulacionField(input);
+        if (!ok) {
+          esValido = false;
+          if (!primerCampoInvalido) primerCampoInvalido = input;
+        }
+      });
+
+      const cvOk = validateCV();
+      if (!cvOk) {
+        esValido = false;
+        if (!primerCampoInvalido) primerCampoInvalido = cvInput;
+      }
+
+      if (!esValido) {
+        postulacionStatus.textContent = 'Revisá los campos marcados en rojo.';
+        postulacionStatus.className = 'form-status mono err';
+        if (primerCampoInvalido) primerCampoInvalido.focus();
+        return;
+      }
+
+      postulacionStatus.textContent = 'Enviando…';
+      postulacionStatus.className = 'form-status mono';
+
+      try {
+        const response = await fetch(postulacionForm.action, {
+          method: 'POST',
+          body: new FormData(postulacionForm)
+        });
+
+        if (!response.ok) throw new Error('Error de red');
+
+        postulacionStatus.textContent = 'Postulación enviada correctamente.';
+        postulacionStatus.className = 'form-status mono ok';
+        postulacionForm.reset();
+        if (cvNameEl) cvNameEl.textContent = '';
+        postulacionForm.querySelectorAll('.has-error').forEach((el) => el.classList.remove('has-error'));
+        openPostulacionSuccessModal();
+      } catch (err) {
+        postulacionStatus.textContent = 'No se pudo enviar la postulación. Intenta nuevamente o escríbenos por correo.';
+        postulacionStatus.className = 'form-status mono err';
+      }
+    });
+  }
+
 });

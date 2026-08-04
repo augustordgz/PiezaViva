@@ -23,8 +23,8 @@
   margin-bottom: 2rem;
 }
 .history-hero h1 { font-size: clamp(2rem, 5vw, 3rem); max-width: 14ch; text-align: center; margin-left: auto; margin-right: auto; }
-.history-hero p { text-align: center;}
 .history-hero .lead { font-size: 1.1rem; margin: 0; }
+.history-hero p { text-align: center; }
 
 /* ---------- Bloques de historia ---------- */
 .history-block { padding: 4.5rem 2rem; text-align: left; }
@@ -99,24 +99,14 @@
 }
 .principle-item p { font-size: 0.9rem; margin: 0; }
 
-/* ---------- Manifiesto pendiente ---------- */
-.pending-note {
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-  font-style: italic;
-}
-
 /* ---------- Cierre / CTA ---------- */
 .history-cta {
-  background: var(--ink);
-  color: var(--bone);
+  background: var(--contrast-bg);
+  color: var(--on-color);
   text-align: center;
   padding: 5rem 2rem;
 }
-.history-cta h2 { color: var(--bone); max-width: none; }
+.history-cta h2 { color: var(--on-color); max-width: none; }
 .history-cta p { color: rgba(255,255,255,0.75); max-width: 48ch; margin: 0 auto 1.6rem; }
 
 @media (max-width: 900px) {

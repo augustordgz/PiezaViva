@@ -59,25 +59,131 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.link-more[data-modal]').forEach(btn => {
     btn.addEventListener('click', () => {
       const data = blogContent[btn.dataset.modal];
-      if (!data) return;
+      if (!data || !modalOverlay || !modalContent) return;
       modalContent.innerHTML = `<span class="mono">${data.date}</span><h2>${data.title}</h2><p>${data.body}</p>`;
       modalOverlay.classList.add('active');
     });
   });
 
-  function closeModal() { modalOverlay.classList.remove('active'); }
+  function closeModal() { if (modalOverlay) modalOverlay.classList.remove('active'); }
   if (modalClose) modalClose.addEventListener('click', closeModal);
   if (modalOverlay) modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-  /* -------- Envío del formulario de contacto --------
-     Envía los datos a php/contacto.php sin recargar la página. */
+  /* -------- Modal de envío exitoso (formulario de contacto) -------- */
+  const successModalOverlay = document.getElementById('successModalOverlay');
+  const successModalClose = document.getElementById('successModalClose');
+  const successModalOk = document.getElementById('successModalOk');
+
+  function openSuccessModal() {
+    if (successModalOverlay) successModalOverlay.classList.add('active');
+  }
+  function closeSuccessModal() {
+    if (successModalOverlay) successModalOverlay.classList.remove('active');
+  }
+  if (successModalClose) successModalClose.addEventListener('click', closeSuccessModal);
+  if (successModalOk) successModalOk.addEventListener('click', closeSuccessModal);
+  if (successModalOverlay) {
+    successModalOverlay.addEventListener('click', (e) => {
+      if (e.target === successModalOverlay) closeSuccessModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      closeSuccessModal();
+    }
+  });
+
+  /* -------- Validación independiente por campo --------
+     Cada campo se valida solo (en vivo, al escribir/salir del campo)
+     y también todos juntos al intentar enviar el formulario. */
   const contactForm = document.getElementById('contactForm');
   const formStatus = document.getElementById('formStatus');
 
   if (contactForm) {
+    const fieldValidators = {
+      nombre: (value) => value.trim() !== '' || 'Ingresá tu nombre o el de tu empresa.',
+      email: (value) => {
+        if (value.trim() === '') return 'Ingresá tu email.';
+        const valido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+        return valido || 'Ingresá un email válido (debe contener "@" y un dominio, ej: nombre@dominio.com).';
+      },
+      telefono: (value) => {
+        if (value.trim() === '') return true; // opcional
+        const soloValidos = /^[0-9+\-\s]+$/.test(value);
+        if (!soloValidos) return 'El teléfono solo puede contener números.';
+        const digitos = value.replace(/\D/g, '');
+        return digitos.length >= 8 || 'Ingresá un teléfono válido (mínimo 8 dígitos).';
+      },
+      asunto: (value) => value.trim() !== '' || 'Ingresá un asunto.',
+      mensaje: (value) => value.trim() !== '' || 'Escribí tu mensaje.'
+    };
+
+    function showError(input, message) {
+      const wrapper = input.parentElement;
+      const errorEl = document.getElementById('err-' + input.id);
+      if (message === true || message === undefined) {
+        wrapper.classList.remove('has-error');
+        if (errorEl) errorEl.textContent = '';
+        return true;
+      }
+      wrapper.classList.add('has-error');
+      if (errorEl) errorEl.textContent = message;
+      return false;
+    }
+
+    function validateField(input) {
+      const validator = fieldValidators[input.name];
+      if (!validator) return true;
+      const result = validator(input.value);
+      return showError(input, result === true ? true : result);
+    }
+
+    // El teléfono no deja escribir letras: filtra cualquier tecla que no
+    // sea número, espacio, "+" o "-" apenas se ingresa.
+    const telefonoInput = document.getElementById('telefono');
+    if (telefonoInput) {
+      telefonoInput.addEventListener('input', () => {
+        const limpio = telefonoInput.value.replace(/[^0-9+\-\s]/g, '');
+        if (limpio !== telefonoInput.value) telefonoInput.value = limpio;
+        validateField(telefonoInput);
+      });
+    }
+
+    // Validación en vivo del resto de los campos: al escribir (si ya tenía
+    // error) y al salir del campo.
+    ['nombre', 'email', 'asunto', 'mensaje'].forEach((name) => {
+      const input = contactForm.elements[name];
+      if (!input) return;
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => {
+        if (input.parentElement.classList.contains('has-error')) validateField(input);
+      });
+    });
+
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      let esValido = true;
+      let primerCampoInvalido = null;
+      Object.keys(fieldValidators).forEach((name) => {
+        const input = contactForm.elements[name];
+        if (!input) return;
+        const ok = validateField(input);
+        if (!ok) {
+          esValido = false;
+          if (!primerCampoInvalido) primerCampoInvalido = input;
+        }
+      });
+
+      if (!esValido) {
+        formStatus.textContent = 'Revisá los campos marcados en rojo.';
+        formStatus.className = 'form-status mono err';
+        if (primerCampoInvalido) primerCampoInvalido.focus();
+        return;
+      }
+
       formStatus.textContent = 'Enviando…';
       formStatus.className = 'form-status mono';
 
@@ -89,9 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!response.ok) throw new Error('Error de red');
 
-        formStatus.textContent = 'Mensaje enviado correctamente. Te contactaremos a la brevedad.';
+        formStatus.textContent = 'Mensaje enviado correctamente.';
         formStatus.className = 'form-status mono ok';
         contactForm.reset();
+        contactForm.querySelectorAll('.has-error').forEach((el) => el.classList.remove('has-error'));
+        openSuccessModal();
       } catch (err) {
         formStatus.textContent = 'No se pudo enviar el mensaje. Intenta nuevamente o escríbenos por correo.';
         formStatus.className = 'form-status mono err';

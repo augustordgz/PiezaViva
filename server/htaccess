@@ -1,0 +1,6 @@
+# Bloquea el acceso directo por navegador a los archivos .env,
+# por si alguien intenta abrir tusitio.com/server/.env
+<Files ~ "^\.env">
+    Order allow,deny
+    Deny from all
+</Files>

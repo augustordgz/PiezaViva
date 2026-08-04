@@ -5,22 +5,23 @@
  * un email a la empresa. Pensado para hosting compartido (HostGator).
  *
  * ANTES DE SUBIR:
- * 1. Completa DB_HOST, DB_NAME, DB_USER, DB_PASS con los datos que
- *    te da el cPanel de HostGator al crear la base de datos.
- * 2. Cambia $destinatario por el email real de la empresa.
- * 3. Crea la tabla ejecutando el SQL que está al final de este archivo
+ * 1. Completa server/.env con los datos reales (mirá server/.env.example).
+ * 2. Crea la tabla ejecutando el SQL que está al final de este archivo
  *    (una sola vez, desde phpMyAdmin).
  */
 
+require_once __DIR__ . '/../env.php';
+cargarEnv(__DIR__ . '/../.env');
+
 header('Content-Type: application/json; charset=utf-8');
 
-// ---------- CONFIGURACIÓN ----------
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'nombre_basedatos');
-define('DB_USER', 'usuario_bd');
-define('DB_PASS', 'password_bd');
+// ---------- CONFIGURACIÓN (viene de server/.env, no está escrita acá) ----------
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME'));
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASS', getenv('DB_PASS'));
 
-$destinatario = 'contacto@piezaviva.cl'; // reemplaza por el email real de Pieza Viva
+$destinatario = getenv('CONTACT_EMAIL') ?: 'contacto@piezaviva.cl';
 // ------------------------------------
 
 function responder($ok, $mensaje) {

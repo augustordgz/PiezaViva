@@ -21,7 +21,7 @@ define('DB_NAME', getenv('DB_NAME'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
-$destinatario = getenv('CONTACT_EMAIL') ?: 'contacto@piezaviva.cl';
+$destinatario = getenv('CONTACT_EMAIL') ?: 'contacto@piezaviva.com';
 // ------------------------------------
 
 function responder($ok, $mensaje) {

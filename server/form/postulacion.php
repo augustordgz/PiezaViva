@@ -24,7 +24,7 @@ define('DB_NAME', getenv('DB_NAME'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
-$destinatario = getenv('CONTACT_EMAIL') ?: 'contacto@piezaviva.cl';
+$destinatario = getenv('POSTULACIONES_EMAIL') ?: 'postulaciones@piezaviva.com';
 $carpetaCV = __DIR__ . '/../uploads/cv/';
 $pesoMaximoCV = 4 * 1024 * 1024; // 4 MB
 // ------------------------------------

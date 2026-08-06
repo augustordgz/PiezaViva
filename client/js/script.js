@@ -391,18 +391,122 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* -------- Carrusel de Merch: duplica las tarjetas por JS --------
+  /* -------- Carrusel de Merch --------
      El HTML solo tiene los productos escritos una vez; acá los
-     clonamos para que el loop del CSS (translateX -50%) sea continuo,
-     sin tener que mantener una copia pegada a mano en el HTML. */
+     clonamos para que el loop sea continuo, y controlamos el
+     movimiento con JS (en vez de una animación CSS) para que también
+     se pueda arrastrar con el dedo o el mouse. */
+  const merchCarousel = document.querySelector('.merch-carousel');
   const merchTrack = document.querySelector('.merch-track');
-  if (merchTrack) {
+
+  if (merchCarousel && merchTrack) {
+    // 1) Duplicar las tarjetas para el loop infinito.
     const originales = Array.from(merchTrack.children);
     originales.forEach((card) => {
       const clon = card.cloneNode(true);
       clon.setAttribute('aria-hidden', 'true');
       clon.setAttribute('tabindex', '-1');
       merchTrack.appendChild(clon);
+    });
+
+    // 2) Animación + arrastre.
+    const sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DURACION_VUELTA = 30; // segundos que tarda en dar una vuelta completa
+
+    let anchoMitad = 0;
+    let velocidad = 0; // se calcula en medir(), en px por milisegundo
+    let posX = 0;
+    let pausado = false;
+    let arrastrando = false;
+    let inicioX = 0;
+    let posInicioArrastre = 0;
+    let ultimoTimestamp = null;
+
+    function medir() {
+      anchoMitad = merchTrack.scrollWidth / 2;
+      velocidad = anchoMitad / (DURACION_VUELTA * 1000);
+    }
+    medir();
+    window.addEventListener('resize', medir);
+
+    function normalizar(x) {
+      if (anchoMitad <= 0) return 0;
+      x = x % anchoMitad;
+      if (x > 0) x -= anchoMitad;
+      return x;
+    }
+
+    function aplicarPosicion() {
+      merchTrack.style.transform = `translateX(${posX}px)`;
+    }
+
+    function frame(timestamp) {
+      if (ultimoTimestamp === null) ultimoTimestamp = timestamp;
+      const delta = timestamp - ultimoTimestamp;
+      ultimoTimestamp = timestamp;
+
+      if (!pausado && !arrastrando && !sinMovimiento) {
+        posX = normalizar(posX - velocidad * delta);
+        aplicarPosicion();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    // Pausa al pasar el mouse o enfocar con teclado (igual que antes).
+    merchCarousel.addEventListener('mouseenter', () => { pausado = true; });
+    merchCarousel.addEventListener('mouseleave', () => { pausado = false; });
+    merchCarousel.addEventListener('focusin', () => { pausado = true; });
+    merchCarousel.addEventListener('focusout', () => { pausado = false; });
+
+    // Arrastre con mouse y con el dedo (Pointer Events cubre ambos).
+    let arrastreSignificativo = false;
+
+    function empezarArrastre(clientX) {
+      arrastrando = true;
+      pausado = true;
+      inicioX = clientX;
+      posInicioArrastre = posX;
+      arrastreSignificativo = false;
+      merchTrack.classList.add('is-dragging');
+    }
+    function moverArrastre(clientX) {
+      if (!arrastrando) return;
+      const delta = clientX - inicioX;
+      if (Math.abs(delta) > 6) arrastreSignificativo = true;
+      posX = normalizar(posInicioArrastre + delta);
+      aplicarPosicion();
+    }
+    function terminarArrastre() {
+      if (!arrastrando) return;
+      arrastrando = false;
+      pausado = false;
+      merchTrack.classList.remove('is-dragging');
+    }
+
+    // Si hubo arrastre real, cancela el click que sigue (para no abrir
+    // el producto sin querer al soltar después de deslizar).
+    merchTrack.addEventListener('click', (e) => {
+      if (arrastreSignificativo) {
+        e.preventDefault();
+        e.stopPropagation();
+        arrastreSignificativo = false;
+      }
+    }, true);
+
+    merchTrack.addEventListener('pointerdown', (e) => {
+      empezarArrastre(e.clientX);
+      merchTrack.setPointerCapture(e.pointerId);
+    });
+    merchTrack.addEventListener('pointermove', (e) => {
+      if (arrastrando) moverArrastre(e.clientX);
+    });
+    merchTrack.addEventListener('pointerup', terminarArrastre);
+    merchTrack.addEventListener('pointercancel', terminarArrastre);
+
+    // Evita que el navegador intente arrastrar las imágenes como archivo.
+    merchTrack.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
     });
   }
 

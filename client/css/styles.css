@@ -459,16 +459,14 @@ button { font-family: inherit; color: inherit; cursor: pointer; }
   width: max-content;
   gap: 1.6rem;
   padding: 0 2rem;
-  animation: merch-scroll 30s linear infinite;
+  /* El movimiento ahora lo controla JS (ver script.js), para poder
+     tanto animar solo como responder al arrastre táctil/mouse. */
+  touch-action: pan-y;
+  cursor: grab;
+  will-change: transform;
 }
-.merch-carousel:hover .merch-track,
-.merch-carousel:focus-within .merch-track {
-  animation-play-state: paused;
-}
-@keyframes merch-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+.merch-track.is-dragging { cursor: grabbing; }
+.merch-card { -webkit-user-drag: none; user-select: none; }
 
 .merch-card {
   flex: 0 0 220px;
@@ -745,7 +743,7 @@ button { font-family: inherit; color: inherit; cursor: pointer; }
   .capacity-card { padding: 1.6rem 1.4rem; }
 
   .merch-card { flex: 0 0 160px; width: 160px; }
-  .merch-track { animation-duration: 30s; gap: 1.1rem; }
+  .merch-track { gap: 1.1rem; }
   .capacity-card h3 { font-size: 1.3rem; }
   .capacity-card p { font-size: 0.92rem; }
 

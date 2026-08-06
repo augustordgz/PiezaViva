@@ -5,8 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="js/theme.js"></script>
 <title>Postulaciones | Pieza Viva</title>
-<meta name="description" content="Postulá para trabajar en Pieza Viva. Completá tus datos y adjuntá tu CV en PDF.">
+<meta name="description" content="Postula para trabajar en Pieza Viva. Completa tus datos y adjunta tu CV en PDF.">
 <link rel="shortcut icon" href="icono.ico" type="image/x-icon">
+<link rel="icon" href="icono.ico" sizes="any">
+<link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,7 +21,7 @@
 <!-- ================= HEADER ================= -->
 <header class="site-header" id="header">
   <div class="header-inner">
-    <a href="#inicio" class="logo">
+    <a href="index.html" class="logo">
       <img
             src="images/piezaviva2.jpeg"
             alt="Logo"
@@ -31,8 +35,8 @@
       <a href="index.html#nosotros">Nosotros</a>
       <a href="index.html#capacidades">Capacidades</a>
       <a href="index.html#proyectos">Proyectos</a>
-      <!-- <a href="#blog">Blog</a> -->
-      <!-- <a href="#merch">Merch</a> -->
+      <!-- <a href="index.html#blog">Blog</a> -->
+      <!-- <a href="index.html#merch">Merch</a> -->
       <a href="index.html#contacto" class="nav-cta">Contacto</a>
     </nav>
 
@@ -64,7 +68,7 @@
   <div class="postulaciones-hero-inner">
     <a href="index.html#contacto" class="back-link mono">← Volver</a>
     <h1>Forma parte de Pieza Viva</h1>
-    <p class="lead">Completa tus datos y adjunta tu CV. Si tu perfil se ajusta con alguna búsqueda activa o futura, nos vamos a poner en contacto contigo.</p>
+    <p class="lead">Completa tus datos y adjunta tu CV. Si tu perfil se ajusta con alguna búsqueda activa o futura, nos pondremos en contacto contigo.</p>
   </div>
 </section>
 
@@ -79,23 +83,24 @@
     <div class="postulaciones-form-intro">
       <p class="eyebrow mono">Postulaciones</p>
       <h2>Envíanos tu postulación</h2>
-      <p>Completa el formulario y adjunta tu CV en formato PDF.</p>
+      <p>Completa el formulario y adjunta tu CV en PDF.</p>
     </div>
-    <form class="postulacion-form" id="postulacionForm" action="server/form/postulacion.php" method="POST" enctype="multipart/form-data" novalidate>
+
+    <form class="contact-form postulacion-form" id="postulacionForm" action="server/form/postulacion.php" method="POST" enctype="multipart/form-data" novalidate>
       <div class="form-row">
         <label for="p-nombre">Nombre completo</label>
-        <input type="text" id="p-nombre" name="nombre" required>
+        <input type="text" id="p-nombre" name="nombre" autocomplete="name" required>
         <span class="field-error" id="err-p-nombre"></span>
       </div>
       <div class="form-row form-row--split">
         <div>
           <label for="p-email">Email</label>
-          <input type="email" id="p-email" name="email" required>
+          <input type="email" id="p-email" name="email" autocomplete="email" required>
           <span class="field-error" id="err-p-email"></span>
         </div>
         <div>
           <label for="p-telefono">Teléfono</label>
-          <input type="tel" id="p-telefono" name="telefono" inputmode="numeric" placeholder="+56 9 1234 5678">
+          <input type="tel" id="p-telefono" name="telefono" inputmode="numeric" autocomplete="tel" placeholder="+56 9 1234 5678">
           <span class="field-error" id="err-p-telefono"></span>
         </div>
       </div>
@@ -104,7 +109,7 @@
         <input type="text" id="p-cargo" name="cargo" placeholder="Ej: Arqueología, Conservación, Administración">
       </div>
       <div class="form-row">
-        <label for="p-mensaje">Cuéntanos brevemente sobre tí (opcional)</label>
+        <label for="p-mensaje">Cuéntanos brevemente sobre ti (opcional)</label>
         <textarea id="p-mensaje" name="mensaje" rows="4"></textarea>
       </div>
       <div class="form-row">
@@ -145,6 +150,11 @@
     </div>
   </div>
 </footer>
+
+<!-- Botón flotante WhatsApp -->
+<a href="https://wa.me/56941024290" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Escribe por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.9 4.43-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.43 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.18 8.18 0 0 1 2.41 5.82c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.16.24-.64.81-.78.97-.15.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.47-.01-.16 0-.43.06-.66.31-.23.24-.86.84-.86 2.05s.88 2.38 1 2.55c.13.16 1.73 2.64 4.2 3.7.59.25 1.05.4 1.41.51.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+</a>
 
 <!-- ================= MODAL DE ENVÍO EXITOSO ================= -->
 <div class="modal-overlay" id="postulacionSuccessOverlay">

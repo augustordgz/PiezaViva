@@ -1,0 +1,13 @@
+# Bloquea el acceso directo por navegador a los archivos .env,
+# por si alguien intenta abrir tusitio.com/server/.env
+<Files ~ "^\.env">
+    <IfModule mod_authz_core.c>
+        # Apache 2.4 y superior
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        # Apache 2.2 y anteriores
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</Files>

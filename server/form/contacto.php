@@ -56,18 +56,21 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 try {
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if ($mysqli->connect_errno) {
-        throw new Exception('Conexión a BD falló');
+        throw new Exception('Conexión a BD falló: ' . $mysqli->connect_error);
     }
 
     $stmt = $mysqli->prepare(
         "INSERT INTO mensajes_contacto (nombre, email, telefono, motivo, asunto, mensaje, creado_en)
          VALUES (?, ?, ?, ?, ?, ?, NOW())"
     );
+    if ($stmt === false) {
+        throw new Exception('No se pudo preparar la consulta: ' . $mysqli->error);
+    }
     $stmt->bind_param('ssssss', $nombre, $email, $telefono, $motivo, $asunto, $mensaje);
     $stmt->execute();
     $stmt->close();
     $mysqli->close();
-} catch (Exception $e) {
+} catch (Throwable $e) {
     // No detenemos el envío del email aunque falle la BD,
     // pero lo dejamos registrado para revisar el log de errores de PHP.
     error_log('Error guardando contacto: ' . $e->getMessage());
@@ -82,9 +85,16 @@ $cuerpo = "Nombre/Empresa: $nombre\n"
         . "Asunto: $asunto\n\n"
         . "Mensaje:\n$mensaje\n";
 
-$headers = "From: web@piezaviva.cl\r\nReply-To: $email\r\n";
+// Usamos como remitente la misma casilla de destino (una cuenta real que
+// sabemos que existe en el hosting), en vez de una inventada como
+// "web@..." que probablemente no exista y haga que el servidor descarte
+// el correo en silencio.
+$headers = "From: $destinatario\r\nReply-To: $email\r\n";
 
-@mail($destinatario, $asuntoEmail, $cuerpo, $headers);
+$enviado = mail($destinatario, $asuntoEmail, $cuerpo, $headers);
+if (!$enviado) {
+    error_log('mail() de contacto devolvió false para: ' . $destinatario);
+}
 
 responder(true, 'Mensaje enviado correctamente');
 

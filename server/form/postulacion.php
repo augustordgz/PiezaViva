@@ -24,7 +24,7 @@ define('DB_NAME', getenv('DB_NAME'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
-$destinatario = getenv('POSTULACIONES_EMAIL') ?: 'postulaciones@piezaviva.com';
+$destinatario = getenv('POSTULACIONES_EMAIL') ?: (getenv('CONTACT_EMAIL') ?: 'contacto@piezaviva.com');
 $carpetaCV = __DIR__ . '/../uploads/cv/';
 $pesoMaximoCV = 4 * 1024 * 1024; // 4 MB
 // ------------------------------------
@@ -96,18 +96,21 @@ if (!move_uploaded_file($_FILES['cv']['tmp_name'], $rutaDestino)) {
 try {
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if ($mysqli->connect_errno) {
-        throw new Exception('Conexión a BD falló');
+        throw new Exception('Conexión a BD falló: ' . $mysqli->connect_error);
     }
 
     $stmt = $mysqli->prepare(
         "INSERT INTO postulaciones (nombre, email, telefono, cargo, mensaje, archivo_cv, creado_en)
          VALUES (?, ?, ?, ?, ?, ?, NOW())"
     );
+    if ($stmt === false) {
+        throw new Exception('No se pudo preparar la consulta: ' . $mysqli->error);
+    }
     $stmt->bind_param('ssssss', $nombre, $email, $telefono, $cargo, $mensaje, $nombreArchivo);
     $stmt->execute();
     $stmt->close();
     $mysqli->close();
-} catch (Exception $e) {
+} catch (Throwable $e) {
     // No detenemos el envío del email aunque falle la BD,
     // pero lo dejamos registrado para revisar el log de errores de PHP.
     error_log('Error guardando postulación: ' . $e->getMessage());
@@ -122,9 +125,16 @@ $cuerpo = "Nombre: $nombre\n"
         . "Mensaje:\n$mensaje\n\n"
         . "CV guardado en el servidor como: $nombreArchivo\n";
 
-$headers = "From: web@piezaviva.cl\r\nReply-To: $email\r\n";
+// Usamos como remitente la misma casilla de destino (una cuenta real que
+// sabemos que existe en el hosting), en vez de una inventada como
+// "web@..." que probablemente no exista y haga que el servidor descarte
+// el correo en silencio.
+$headers = "From: $destinatario\r\nReply-To: $email\r\n";
 
-@mail($destinatario, $asuntoEmail, $cuerpo, $headers);
+$enviado = mail($destinatario, $asuntoEmail, $cuerpo, $headers);
+if (!$enviado) {
+    error_log('mail() de postulación devolvió false para: ' . $destinatario);
+}
 
 responder(true, 'Postulación enviada correctamente');
 

@@ -391,4 +391,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* -------- Carrusel de Merch: duplica las tarjetas por JS --------
+     El HTML solo tiene los productos escritos una vez; acá los
+     clonamos para que el loop del CSS (translateX -50%) sea continuo,
+     sin tener que mantener una copia pegada a mano en el HTML. */
+  const merchTrack = document.querySelector('.merch-track');
+  if (merchTrack) {
+    const originales = Array.from(merchTrack.children);
+    originales.forEach((card) => {
+      const clon = card.cloneNode(true);
+      clon.setAttribute('aria-hidden', 'true');
+      clon.setAttribute('tabindex', '-1');
+      merchTrack.appendChild(clon);
+    });
+  }
+
 });

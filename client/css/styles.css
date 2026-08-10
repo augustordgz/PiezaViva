@@ -319,6 +319,10 @@ button { font-family: inherit; color: inherit; cursor: pointer; }
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
   z-index: 5;
 }
+.capacity-card.is-active {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  z-index: 5;
+}
 .capacity-card h3 { margin: 1.1rem 0 0; }
 
 .capacity-visual {
@@ -353,11 +357,13 @@ button { font-family: inherit; color: inherit; cursor: pointer; }
   margin: 0;
   font-size: 0.92rem;
 }
-.capacity-card:hover .capacity-photo img {
+.capacity-card:hover .capacity-photo img,
+.capacity-card.is-active .capacity-photo img {
   opacity: 0;
   transform: scale(1.04);
 }
-.capacity-card:hover .capacity-desc {
+.capacity-card:hover .capacity-desc,
+.capacity-card.is-active .capacity-desc {
   opacity: 1;
   transform: translateY(0);
 }

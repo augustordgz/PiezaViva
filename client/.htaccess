@@ -1,0 +1,24 @@
+# ===================================================================
+# URLs limpias: oculta la extensión .html
+#
+# - Si alguien entra escribiendo /historia.html (o cualquier .html),
+#   lo redirige a /historia (sin extensión) para que esa sea la URL
+#   que quede en la barra del navegador y la que indexe Google.
+# - Si piden /historia (sin extensión), sirve por dentro historia.html
+#   sin que la URL cambie.
+# ===================================================================
+RewriteEngine On
+
+# /index.html -> / (caso especial: la home no debe quedar como /index)
+RewriteCond %{THE_REQUEST} /index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [L,R=301]
+
+# /archivo.html -> /archivo (para el resto de las páginas)
+RewriteCond %{THE_REQUEST} /([^.]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# Puertas adentro: si piden /archivo (sin extensión) y existe archivo.html,
+# servirlo sin que la URL cambie en el navegador.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^.]+)$ $1.html [NC,L]

@@ -103,21 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (contactForm) {
     const fieldValidators = {
-      nombre: (value) => value.trim() !== '' || 'Ingresá tu nombre o el de tu empresa.',
+      nombre: (value) => value.trim() !== '' || 'Ingrese su nombre o el de su empresa.',
       email: (value) => {
-        if (value.trim() === '') return 'Ingresá tu email.';
+        if (value.trim() === '') return 'Ingrese su email.';
         const valido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-        return valido || 'Ingresá un email válido (debe contener "@" y un dominio, ej: nombre@dominio.com).';
+        return valido || 'Ingrese un email válido (debe contener "@" y un dominio, ej: nombre@dominio.com).';
       },
       telefono: (value) => {
         if (value.trim() === '') return true; // opcional
         const soloValidos = /^[0-9+\-\s]+$/.test(value);
-        if (!soloValidos) return 'El teléfono solo puede contener números.';
+        if (!soloValidos) return 'El teléfono solo debe contener números.';
         const digitos = value.replace(/\D/g, '');
-        return digitos.length >= 8 || 'Ingresá un teléfono válido (mínimo 8 dígitos).';
+        return digitos.length >= 8 || 'Ingrese un teléfono válido (mínimo 8 dígitos).';
       },
-      asunto: (value) => value.trim() !== '' || 'Ingresá un asunto.',
-      mensaje: (value) => value.trim() !== '' || 'Escribí tu mensaje.'
+      asunto: (value) => value.trim() !== '' || 'Ingrese un asunto.',
+      mensaje: (value) => value.trim() !== '' || 'Escribe tu mensaje.'
     };
 
     function showError(input, message) {
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (!esValido) {
-        formStatus.textContent = 'Revisá los campos marcados en rojo.';
+        formStatus.textContent = 'Revise los campos marcados en rojo.';
         formStatus.className = 'form-status mono err';
         if (primerCampoInvalido) primerCampoInvalido.focus();
         return;
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.querySelectorAll('.has-error').forEach((el) => el.classList.remove('has-error'));
         openSuccessModal();
       } catch (err) {
-        formStatus.textContent = 'No se pudo enviar el mensaje. Intenta nuevamente o escríbenos por correo.';
+        formStatus.textContent = 'No se pudo enviar el mensaje. Intente nuevamente o escríbenos por correo.';
         formStatus.className = 'form-status mono err';
       }
     });
@@ -234,18 +234,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const PESO_MAXIMO_CV = 4 * 1024 * 1024; // 4MB
 
     const postulacionValidators = {
-      nombre: (value) => value.trim() !== '' || 'Ingresá tu nombre completo.',
+      nombre: (value) => value.trim() !== '' || 'Ingrese su nombre completo.',
       email: (value) => {
-        if (value.trim() === '') return 'Ingresá tu email.';
+        if (value.trim() === '') return 'Ingrese su email.';
         const valido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-        return valido || 'Ingresá un email válido (ej: nombre@dominio.com).';
+        return valido || 'Ingrese un email válido (ej: nombre@dominio.com).';
       },
       telefono: (value) => {
         if (value.trim() === '') return true; // opcional
         const soloValidos = /^[0-9+\-\s]+$/.test(value);
-        if (!soloValidos) return 'El teléfono solo puede contener números.';
+        if (!soloValidos) return 'El teléfono solo debe contener números.';
         const digitos = value.replace(/\D/g, '');
-        return digitos.length >= 8 || 'Ingresá un teléfono válido (mínimo 8 dígitos).';
+        return digitos.length >= 8 || 'Ingrese un teléfono válido (mínimo 8 dígitos).';
       }
     };
 
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const file = cvInput.files && cvInput.files[0];
       if (cvNameEl) cvNameEl.textContent = file ? file.name : '';
 
-      if (!file) return showFieldError(cvInput, 'Adjuntá tu CV en PDF.');
+      if (!file) return showFieldError(cvInput, 'Adjunta tu CV en PDF.');
 
       const esPDF = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
       if (!esPDF) {
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (file.size > PESO_MAXIMO_CV) {
         cvInput.value = '';
         if (cvNameEl) cvNameEl.textContent = '';
-        return showFieldError(cvInput, 'El CV no puede pesar más de 4MB.');
+        return showFieldError(cvInput, 'El CV no debe pesar más de 4MB.');
       }
 
       return showFieldError(cvInput, true);
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!esValido) {
-        postulacionStatus.textContent = 'Revisá los campos marcados en rojo.';
+        postulacionStatus.textContent = 'Revise los campos marcados en rojo.';
         postulacionStatus.className = 'form-status mono err';
         if (primerCampoInvalido) primerCampoInvalido.focus();
         return;
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
         postulacionForm.querySelectorAll('.has-error').forEach((el) => el.classList.remove('has-error'));
         openPostulacionSuccessModal();
       } catch (err) {
-        postulacionStatus.textContent = 'No se pudo enviar la postulación. Intenta nuevamente o escríbenos por correo.';
+        postulacionStatus.textContent = 'No se pudo enviar la postulación. Intente nuevamente o escríbenos por correo.';
         postulacionStatus.className = 'form-status mono err';
       }
     });
@@ -495,18 +495,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }, true);
 
     merchTrack.addEventListener('pointerdown', (e) => {
+      // Solo arranca con el botón principal (evita clic derecho, etc.)
+      if (e.button !== undefined && e.button !== 0) return;
       empezarArrastre(e.clientX);
-      merchTrack.setPointerCapture(e.pointerId);
     });
-    merchTrack.addEventListener('pointermove', (e) => {
+    // Escuchamos en window (no con setPointerCapture) para que el arrastre
+    // siga funcionando aunque el cursor salga de la tarjeta, sin que eso
+    // interfiera con el clic normal de los links en escritorio.
+    window.addEventListener('pointermove', (e) => {
       if (arrastrando) moverArrastre(e.clientX);
     });
-    merchTrack.addEventListener('pointerup', terminarArrastre);
-    merchTrack.addEventListener('pointercancel', terminarArrastre);
+    window.addEventListener('pointerup', terminarArrastre);
+    window.addEventListener('pointercancel', terminarArrastre);
 
     // Evita que el navegador intente arrastrar las imágenes como archivo.
     merchTrack.querySelectorAll('img').forEach((img) => {
       img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+  }
+
+  /* -------- Tarjetas de Capacidades: tocar para ver el texto --------
+     En celular no existe el ":hover" real (el dedo solo lo simula
+     mientras sigue tocando), así que en dispositivos táctiles un toque
+     agrega/saca una clase que hace lo mismo que el hover de escritorio.
+     En dispositivos con mouse no se toca nada, sigue funcionando con
+     hover como antes. */
+  const esTactil = window.matchMedia && window.matchMedia('(hover: none)').matches;
+  if (esTactil) {
+    document.querySelectorAll('.capacity-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('is-active');
+      });
     });
   }
 

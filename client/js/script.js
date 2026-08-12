@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* -------- "Precalentar" el firewall antibot del hosting --------
+     Algunos hostings (HostGator incluido) bloquean el primer envío
+     por AJAX a un formulario con un desafío que pone una cookie —
+     ese desafío viene con un <script> que solo se ejecuta si el
+     navegador carga la página completa, no con fetch(). Lo resolvemos
+     apenas se carga el sitio, en un iframe invisible, así para cuando
+     la persona termina de completar el formulario la cookie ya está
+     puesta y el envío real pasa limpio. Si el hosting no tiene este
+     problema, esto simplemente no hace nada perceptible. */
+  if (document.getElementById('contactForm')) {
+    const precalentar = document.createElement('iframe');
+    precalentar.src = 'server/form/contacto.php';
+    precalentar.style.display = 'none';
+    precalentar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(precalentar);
+  }
+
   /* -------- Año dinámico en el footer -------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();

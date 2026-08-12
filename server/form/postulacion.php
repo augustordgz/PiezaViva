@@ -15,6 +15,7 @@
 
 require_once __DIR__ . '/../env.php';
 cargarEnv(__DIR__ . '/../.env');
+require_once __DIR__ . '/../mailer.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -126,14 +127,10 @@ $cuerpo = "Nombre: $nombre\n"
         . "CV guardado en el servidor como: $nombreArchivo\n";
 
 // Usamos como remitente la misma casilla de destino (una cuenta real que
-// sabemos que existe en el hosting), en vez de una inventada como
-// "web@..." que probablemente no exista y haga que el servidor descarte
-// el correo en silencio.
-$headers = "From: $destinatario\r\nReply-To: $email\r\n";
-
-$enviado = mail($destinatario, $asuntoEmail, $cuerpo, $headers);
+// sabemos que existe en el hosting).
+$enviado = enviarEmailSMTP($destinatario, $asuntoEmail, $cuerpo, $email);
 if (!$enviado) {
-    error_log('mail() de postulación devolvió false para: ' . $destinatario);
+    error_log('Fallo el envío SMTP de postulación para: ' . $destinatario);
 }
 
 responder(true, 'Postulación enviada correctamente');
